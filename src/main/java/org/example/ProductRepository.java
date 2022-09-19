@@ -27,7 +27,7 @@ public class ProductRepository {
 
     public void removeById(int id) {
         if (findById(id) == null) {
-            throw new RuntimeException("Такой id не существует: " + id);
+            throw new NotFoundException("Элемент с id " + id + " не найден.");
         }
         Product[] tmp = new Product[products.length - 1];
         int copyToIndex = 0;

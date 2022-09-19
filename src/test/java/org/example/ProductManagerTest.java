@@ -147,6 +147,7 @@ public class ProductManagerTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldSaveOnlySmartphones() {
         ProductRepository repo = new ProductRepository();
@@ -196,6 +197,7 @@ public class ProductManagerTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldRemoveSeveralProductsIfIdCorrect() {
         ProductRepository repo = new ProductRepository();
@@ -211,6 +213,7 @@ public class ProductManagerTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldRemoveNothingIfIdNotCorrect() {
         ProductRepository repo = new ProductRepository();
@@ -227,6 +230,33 @@ public class ProductManagerTest {
         Product[] actual = repo.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldRemoveNothingIfIdNegative() {
+        ProductRepository repo = new ProductRepository();
+        repo.save(book1);
+        repo.save(smartphone1);
+        repo.save(book2);
+        repo.save(smartphone2);
+
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            repo.removeById(-100);
+        });
+    }
+
+
+    @Test
+    public void shouldRemoveNothingIfIdNotCorrect1() {
+        ProductRepository repo = new ProductRepository();
+        repo.save(book1);
+        repo.save(smartphone1);
+        repo.save(book2);
+        repo.save(smartphone2);
+
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            repo.removeById(999);
+        });
     }
 }
 
